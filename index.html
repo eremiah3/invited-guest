@@ -8,14 +8,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Poppins', sans-serif;
-  background: url('image/acc907f0-edb6-44a1-b756-705533c6d819.jfif') no-repeat center top;
-  background-position: center 25%; /* 👈 move image down */
-  background-size: cover;
-  overflow: hidden;
-}
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: url('image/acc907f0-edb6-44a1-b756-705533c6d819.jfif') no-repeat center 25%;
+      background-size: cover;
+      overflow: hidden;
+    }
 
     .container {
       position: relative;
@@ -25,10 +24,38 @@
       align-items: center;
       backdrop-filter: blur(5px);
       background-color: rgba(255, 255, 255, 0.05);
-      cursor: pointer; /* indicates it's clickable */
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    /* Sparkling background animation */
+    .stars {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      background: transparent;
+      pointer-events: none;
+    }
+
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: #fff;
+      border-radius: 50%;
+      animation: twinkle 3s infinite ease-in-out;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.5); }
     }
 
     .glass {
+      position: relative;
       background: rgba(255, 255, 255, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 20px;
@@ -39,6 +66,12 @@
       box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
       backdrop-filter: blur(15px);
       animation: fadeIn 1s ease;
+      z-index: 1;
+      transition: box-shadow 0.5s ease;
+    }
+
+    .glass:hover {
+      box-shadow: 0 0 40px rgba(255, 255, 255, 0.6);
     }
 
     .glass h1 {
@@ -76,6 +109,10 @@
 </head>
 <body>
   <div class="container" id="tap-area">
+    <!-- Stars layer -->
+    <div class="stars" id="stars"></div>
+
+    <!-- Glass invitation card -->
     <div class="glass">
       <h1>✅ Invited Guest</h1>
       <p>You are a verified and honored guest. Welcome!</p>
@@ -113,6 +150,17 @@
         hasPlayed = true;
       }
     });
+
+    // Add twinkling stars dynamically
+    const stars = document.getElementById('stars');
+    for (let i = 0; i < 80; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      star.style.top = Math.random() * 100 + '%';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+      stars.appendChild(star);
+    }
   </script>
 </body>
 </html>
