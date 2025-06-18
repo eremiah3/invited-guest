@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>You’re Invited</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  background: url('image/acc907f0-edb6-44a1-b756-705533c6d819.jfif') no-repeat center top;
+  background-position: center 25%; /* 👈 move image down */
+  background-size: cover;
+  overflow: hidden;
+}
+
+    .container {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(5px);
+      background-color: rgba(255, 255, 255, 0.05);
+      cursor: pointer; /* indicates it's clickable */
+    }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 40px 30px;
+      max-width: 500px;
+      text-align: center;
+      color: #fff;
+      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+      backdrop-filter: blur(15px);
+      animation: fadeIn 1s ease;
+    }
+
+    .glass h1 {
+      font-size: 48px;
+      color: #2ecc71;
+      margin-bottom: 10px;
+    }
+
+    .glass p {
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+
+    .verse {
+      font-style: italic;
+      font-size: 18px;
+      margin-top: 20px;
+      color: #f9ca24;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .glass h1 {
+        font-size: 32px;
+      }
+      .glass p, .verse {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="tap-area">
+    <div class="glass">
+      <h1>✅ Invited Guest</h1>
+      <p>You are a verified and honored guest. Welcome!</p>
+      <!-- <div class="verse">“You prepare a table before me in the presence of my enemies.” — Psalm 23:5</div> -->
+    </div>
+  </div>
+
+  <!-- Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script>
+    confetti({
+      particleCount: 150,
+      spread: 100,
+      origin: { y: 0.6 }
+    });
+  </script>
+
+  <!-- Background Music -->
+  <audio id="bg-music" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    const music = document.getElementById('bg-music');
+    music.volume = 0.3;
+
+    // Play music when user taps anywhere in the container
+    const tapArea = document.getElementById('tap-area');
+    let hasPlayed = false;
+
+    tapArea.addEventListener('click', () => {
+      if (!hasPlayed) {
+        music.play().catch(err => console.log("🔇 Blocked:", err));
+        hasPlayed = true;
+      }
+    });
+  </script>
+</body>
+</html>
